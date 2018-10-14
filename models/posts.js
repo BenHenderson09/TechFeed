@@ -34,6 +34,10 @@ const PostSchema = mongoose.Schema({
     postimage:{
         type:String,
         default:"noimage"
+    },
+    postimage_id:{
+        type:String,
+        default:"noimage"
     }
 });
 const Post = module.exports = mongoose.model("Post", PostSchema);

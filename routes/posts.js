@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const multer = require('multer');
+const cloudinary = require("cloudinary");
 const router = express.Router();
 const Post = require('../models/posts.js');
 const User = require('../models/users.js');
@@ -55,56 +56,73 @@ router.post("/username", (req, res) => {
 router.post("/add", upload.single("postimage"), (req, res) => {
 
     let postimage;
+    let postimage_id;
 
     if (req.file) {
-        postimage = req.file.path; // uploads\\1538419229971pic.png
+        // Upload image to static file db
+        cloudinary.v2.uploader.upload(req.file.path, (err, result) => {
+            if (err) { console.log(err); throw err; }
+
+            postimage = result.secure_url;
+            postimage_id = result.public_id;
+
+            // Delete it from disk storage
+            fs.unlink(req.file.path, (err) => {
+                if (err) throw err;
+            });
+
+            addPost();
+        });
     } else {
         postimage = "noimage";
     }
 
-    const newPost = new Post({
-        title: req.body.title,
-        body: req.body.body,
-        author: req.body.author,
-        postimage: postimage,
-        upvotes: 0,
-        votes: 0
-    });
+    function addPost() {
+        const newPost = new Post({
+            title: req.body.title,
+            body: req.body.body,
+            author: req.body.author,
+            postimage: postimage,
+            postimage_id: postimage_id,
+            upvotes: 0,
+            votes: 0
+        });
 
-    for (let key in req.body) {
-        if (key.includes('cb_')) {
-            if (req.body[key] == 'true') {
-                newPost.categories.push(key);
+        for (let key in req.body) {
+            if (key.includes('cb_')) {
+                if (req.body[key] == 'true') {
+                    newPost.categories.push(key);
+                }
             }
         }
-    }
 
-    // Convert time to dd-mm-yy
-    date = new Date(newPost.created);
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
+        // Convert time to dd-mm-yy
+        date = new Date(newPost.created);
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
 
-    if (day < 10) { day = "0" + day; }
-    if (month < 10) { month = "0" + month; }
-    newPost.created = day + "-" + month + "-" + year;
+        if (day < 10) { day = "0" + day; }
+        if (month < 10) { month = "0" + month; }
+        newPost.created = day + "-" + month + "-" + year;
 
-    if (validate(newPost)) {
-        newPost.save((err, user) => {
-            if (err) { console.log(err); throw err; }
+        if (validate(newPost)) {
+            newPost.save((err, user) => {
+                if (err) { console.log(err); throw err; }
 
-            User.findOne({ _id: req.user._id }, (err, user) => {
-                if (err) { console.log(err); }
-                user.posts++;
+                User.findOne({ _id: req.user._id }, (err, user) => {
+                    if (err) { console.log(err); }
+                    user.posts++;
 
-                user.save((err, user) => {
-                    if (err) { console.log(err); throw err; }
-                    res.json({ message: "Post added successfully", success: true });
+                    user.save((err, user) => {
+                        if (err) { console.log(err); throw err; }
+                        res.json({ message: "Post added successfully", success: true });
+                    });
                 });
             });
-        });
-    } else {
-        res.sendStatus(403);
+        } else {
+            res.sendStatus(403);
+        }
     }
 
     function validate(newPost) {
@@ -170,28 +188,30 @@ router.delete("/delete", (req, res) => {
 
     Post.findOne({ _id: id }, (err, post) => {
         if (err) { console.log(err); throw err; }
+
         if (req.user.username == post.author) {
-
-            // Delete image
             if (post.postimage != null && post.postimage != "noimage") {
-                fs.unlink(post.postimage, (err) => {
-                    if (err) throw err;
+
+                // Delete image
+                cloudinary.v2.uploader.destroy(post.postimage_id, (err, result) => {
+                    if (err) { console.log(err); throw err; }
                 });
-            }
 
-            Post.deleteOne({ _id: id }, (err) => {
-                if (err) { console.log(err); throw err; }
+                // Delete post
+                Post.deleteOne({ _id: id }, (err) => {
+                    if (err) { console.log(err); throw err; }
 
-                User.findOne({ _id: req.user._id }, (err, user) => {
-                    if (err) { console.log(err); }
-                    user.posts--;
+                    User.findOne({ _id: req.user._id }, (err, user) => {
+                        if (err) { console.log(err); }
+                        user.posts--;
 
-                    user.save((err, user) => {
-                        if (err) { console.log(err); throw err; }
-                        res.json({ message: "Post deleted successfully.", success: true });
+                        user.save((err, user) => {
+                            if (err) { console.log(err); throw err; }
+                            res.json({ message: "Post deleted successfully.", success: true });
+                        });
                     });
                 });
-            });
+            }
         } else {
             res.sendStatus(403);
         }
@@ -215,10 +235,10 @@ router.post("/upvote", (req, res) => {
                     if (post.voters[i].user == req.user.username) {
                         if (post.voters[i].vote == "up") {
                             post.voters[i].vote = "";
-                        }else if (post.voters[i].vote == "down" && req.body.num == 1){
+                        } else if (post.voters[i].vote == "down" && req.body.num == 1) {
                             post.voters[i].vote = "";
                         }
-                         else {
+                        else {
                             post.voters[i].vote = "up";
                         }
                     }

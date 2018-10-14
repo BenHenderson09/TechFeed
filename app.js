@@ -1,19 +1,19 @@
-const express          = require("express");
-const bodyParser       = require("body-parser");
-const path             = require("path");
-const mongoose         = require("mongoose");
-const cookieParser     = require("cookie-parser");
-const session          = require("express-session");
-const passport         = require("passport");
-const LocalStrategy    = require("passport-local").Strategy;
-const config           = require("./config/database.js");
-const prerender        = require('prerender-node');
-const bcrypt           = require("bcryptjs");
-const auth             = require("./routes/auth.js");
-const posts            = require("./routes/posts.js");
-const protected        = require("./routes/protected.js");
-const app              = express();
-const fs               = require('fs');
+const express        = require("express");
+const bodyParser     = require("body-parser");
+const path           = require("path");
+const mongoose       = require("mongoose");
+const cookieParser   = require("cookie-parser");
+const session        = require("express-session");
+const passport       = require("passport");
+const LocalStrategy  = require("passport-local").Strategy;
+const config         = require("./config/database.js");
+const prerender      = require('prerender-node');
+const bcrypt         = require("bcryptjs");
+const auth           = require("./routes/auth.js");
+const posts          = require("./routes/posts.js");
+const protected      = require("./routes/protected.js");
+const cloudinary     = require("cloudinary");
+const app            = express();
 
 // --- Config ---
 port = process.env.PORT || 3000;
@@ -23,6 +23,13 @@ process.env.SCRT_KEY = "MY_ScRt23";
 app.use((req,res,next)=>{
     process.env.user = req.user || undefined;
     next();
+});
+
+// Configure cloudinary
+cloudinary.config({ 
+    cloud_name: 'technologyfeed', 
+    api_key: '132798679696652', 
+    api_secret: '6aBf01A0CPqL6oXDpwIhaRFBCuc' 
 });
 
 // Connect to MongoDB
