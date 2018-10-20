@@ -75,6 +75,8 @@ router.post("/add", upload.single("postimage"), (req, res) => {
         });
     } else {
         postimage = "noimage";
+        postimage_id = "";
+        addPost();
     }
 
     function addPost() {
@@ -196,7 +198,7 @@ router.delete("/delete", (req, res) => {
                 cloudinary.v2.uploader.destroy(post.postimage_id, (err, result) => {
                     if (err) { console.log(err); throw err; }
                 });
-
+            }
                 // Delete post
                 Post.deleteOne({ _id: id }, (err) => {
                     if (err) { console.log(err); throw err; }
@@ -211,7 +213,7 @@ router.delete("/delete", (req, res) => {
                         });
                     });
                 });
-            }
+            
         } else {
             res.sendStatus(403);
         }
