@@ -134,7 +134,7 @@ router.post("/add", upload.single("postimage"), (req, res) => {
         if (newPost.title == undefined || newPost.title.length <= 5 || newPost.title.length > 100) {
             return false;
         }
-        if (newPost.body == undefined || newPost.body.length <= 0 || newPost.body.length > 4000) {
+        if (newPost.body == undefined || newPost.body.length <= 0 || newPost.body.length > 900000) {
             return false;
         }
         return true;
