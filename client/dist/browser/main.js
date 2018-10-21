@@ -1168,7 +1168,7 @@ var EditpostComponent = /** @class */ (function () {
             this.titleMsg = "Please enter a title";
         }
         if (input.body != undefined && input.body.length > 0) {
-            if (input.body.length > 4000) {
+            if (input.body.length > 90000) {
                 this.bodyMsg = "Sorry! Body is too long. Please add a link for extended text.";
             }
         }

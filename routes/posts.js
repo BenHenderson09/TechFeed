@@ -178,7 +178,7 @@ router.post("/update", (req, res) => {
         if (data.title == undefined || data.title.length <= 5 || data.title.length > 100) {
             return false;
         }
-        if (data.body == undefined || data.body.length <= 0 || data.body.length > 4000) {
+        if (data.body == undefined || data.body.length <= 0 || data.body.length > 90000) {
             return false;
         }
         return true;
