@@ -60,7 +60,13 @@ router.post("/add", upload.single("postimage"), (req, res) => {
 
     if (req.file) {
         // Upload image to static file db
-        cloudinary.v2.uploader.upload(req.file.path, (err, result) => {
+        cloudinary.v2.uploader.upload(req.file.path, {
+            quality: "auto",
+            width: 800,
+            height: 300,
+            crop: "fit"
+         },
+            (err, result) => {
             if (err) { console.log(err); throw err; }
 
             postimage = result.secure_url;
