@@ -1046,7 +1046,7 @@ module.exports = ".box{\r\n    margin-top:2%;\r\n    margin-bottom: 5%;\r\n}\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar></app-navbar>\n<div class=\"container box\">\n  <div class=\"card\">\n    <h1 class=\"box-header\">Edit Post</h1>\n    <hr />\n    <div class=\"card-body\">\n      <form #postForm=\"ngForm\" enctype=\"multipart/form-data\" (ngSubmit)=\"updatePost(postForm, $event)\">\n        <div class=\"form-group\">\n          <h4 class=\"label\"> Title </h4>\n          <hr />\n          <input type=\"text\" class=\"form-control text-box\" name=\"title\" placeholder=\"Title\" [(ngModel)]=\"titleContent\"\n            ngModel>\n\n          <div class=\"validation\" *ngIf=\"titleMsg\">\n            <hr>\n            <p id=\"title-message\">{{ titleMsg }}</p>\n          </div>\n        </div>\n        <div class=\"form-group form-buffer\">\n          <h4 class=\"label\"> Body </h4>\n          <hr />\n          <ck-editor name=\"editor\" name=\"body\" skin=\"moono-lisa\" language=\"en\" [fullPage]=\"true\" [(ngModel)]=\"bodyContent\" #body ngModel></ck-editor>\n          <div class=\"validation\" *ngIf=\"bodyMsg\">\n            <hr>\n            <p id=\"body-message\">{{ bodyMsg }}</p>\n          </div>\n        </div>\n        <div class=\"form-group form-buffer\">\n          <h4 class=\"label\"> Categories </h4>\n          <hr />\n          <!-- Software --->\n          <div class=\"category\">\n            <button class=\"btn btn-primary\" (click)=\"changeCheck('cb_software')\">Software</button>\n            <input type=\"checkbox\" name=\"cb_software\" [checked]=\"cb_software\" (change)=\"cb_software = !cb_software\">\n          </div>\n\n          <!-- Web -->\n          <div class=\"category\">\n            <button class=\"btn btn-success\" (click)=\"changeCheck('cb_web')\"> Web </button>\n            <input type=\"checkbox\" name=\"cb_web\" [checked]=\"cb_web\" (change)=\"cb_web = !cb_web\">\n          </div>\n\n          <!-- Machine Learning -->\n          <div class=\"category\">\n            <button class=\"btn btn-info\" (click)=\"changeCheck('cb_machinelearning')\"> Machine Learning </button>\n            <input type=\"checkbox\" name=\"cb_machinelearning\" [checked]=\"cb_machinelearning\" (change)=\"cb_machinelearning = !cb_machinelearning\">\n          </div>\n\n          <!-- Robotics -->\n          <div class=\"category\">\n            <button class=\"btn btn-danger\" (click)=\"changeCheck('cb_robotics')\"> Robotics </button>\n            <input type=\"checkbox\" name=\"cb_robotics\" [checked]=\"cb_robotics\" (change)=\"cb_robotics = !cb_robotics\">\n          </div>\n\n          <!-- Mobile -->\n          <div class=\"category\">\n            <button class=\"btn btn-warning\" (click)=\"changeCheck('cb_mobile')\"> Mobile </button>\n            <input type=\"checkbox\" name=\"cb_mobile\" [checked]=\"cb_mobile\" (change)=\"cb_mobile = !cb_mobile\">\n          </div>\n\n          <!-- Tech News -->\n          <div class=\"category\">\n            <button class=\"btn btn-light\" (click)=\"changeCheck('cb_technews')\"> Tech News </button>\n            <input type=\"checkbox\" name=\"cb_technews\" [checked]=\"cb_technews\" (change)=\"cb_technews = !cb_technews\">\n          </div>\n\n          <!-- Other -->\n          <div class=\"category\">\n            <button class=\"btn btn-dark\" (click)=\"changeCheck('cb_other')\"> Other </button>\n            <input type=\"checkbox\" name=\"cb_other\" [checked]=\"cb_other\" (change)=\"cb_other = !cb_other\">\n          </div>\n\n          <div class=\"form-group\">\n            <input type=\"submit\" class=\"btn btn-info submit\">\n          </div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>"
+module.exports = "<app-navbar></app-navbar>\n<div class=\"container box\">\n  <div class=\"card\">\n    <h1 class=\"box-header\">Edit Post</h1>\n    <hr />\n    <div class=\"card-body\">\n      <form #postForm=\"ngForm\" enctype=\"multipart/form-data\" (ngSubmit)=\"updatePost(postForm, $event)\">\n        <div class=\"form-group\">\n          <h4 class=\"label\"> Title </h4>\n          <hr />\n          <input type=\"text\" class=\"form-control text-box\" name=\"title\" placeholder=\"Title\" [(ngModel)]=\"titleContent\"\n            ngModel>\n\n          <div class=\"validation\" *ngIf=\"titleMsg\">\n            <hr>\n            <p id=\"title-message\">{{ titleMsg }}</p>\n          </div>\n        </div>\n        <div class=\"form-group form-buffer\">\n          <h4 class=\"label\"> Body </h4>\n          <hr />\n          <ck-editor name=\"editor\" name=\"body\" skin=\"moono-lisa\" language=\"en\" [fullPage]=\"true\" [(ngModel)]=\"bodyContent\" #body ngModel></ck-editor>\n          <div class=\"validation\" *ngIf=\"bodyMsg\">\n            <hr>\n            <p id=\"body-message\">{{ bodyMsg }}</p>\n          </div>\n        </div>\n        <div class=\"form-group form-buffer\">\n          <h4 class=\"label\"> Categories </h4>\n          <hr />\n          <!-- Software --->\n          <div class=\"category\">\n            <button class=\"btn btn-primary\" (click)=\"changeCheck('cb_software')\">Software</button>\n            <input type=\"checkbox\" name=\"cb_software\" [checked]=\"cb_software\" (change)=\"cb_software = !cb_software\">\n          </div>\n\n          <!-- Web -->\n          <div class=\"category\">\n            <button class=\"btn btn-success\" (click)=\"changeCheck('cb_web')\"> Web </button>\n            <input type=\"checkbox\" name=\"cb_web\" [checked]=\"cb_web\" (change)=\"cb_web = !cb_web\">\n          </div>\n\n          <!-- Machine Learning -->\n          <div class=\"category\">\n            <button class=\"btn btn-info\" (click)=\"changeCheck('cb_machinelearning')\"> Machine Learning </button>\n            <input type=\"checkbox\" name=\"cb_machinelearning\" [checked]=\"cb_machinelearning\" (change)=\"cb_machinelearning = !cb_machinelearning\">\n          </div>\n\n          <!-- Robotics -->\n          <div class=\"category\">\n            <button class=\"btn btn-danger\" (click)=\"changeCheck('cb_robotics')\"> Robotics </button>\n            <input type=\"checkbox\" name=\"cb_robotics\" [checked]=\"cb_robotics\" (change)=\"cb_robotics = !cb_robotics\">\n          </div>\n\n          <!-- Mobile -->\n          <div class=\"category\">\n            <button class=\"btn btn-warning\" (click)=\"changeCheck('cb_mobile')\"> Mobile </button>\n            <input type=\"checkbox\" name=\"cb_mobile\" [checked]=\"cb_mobile\" (change)=\"cb_mobile = !cb_mobile\">\n          </div>\n\n          <!-- Tech News -->\n          <div class=\"category\">\n            <button class=\"btn btn-light\" (click)=\"changeCheck('cb_technews')\"> Tech News </button>\n            <input type=\"checkbox\" name=\"cb_technews\" [checked]=\"cb_technews\" (change)=\"cb_technews = !cb_technews\">\n          </div>\n\n          <!-- Other -->\n          <div class=\"category\">\n            <button class=\"btn btn-dark\" (click)=\"changeCheck('cb_other')\"> Other </button>\n            <input type=\"checkbox\" name=\"cb_other\" [checked]=\"cb_other\" (change)=\"cb_other = !cb_other\">\n          </div>\n\n          <div class=\"form-group form-buffer\">\n            <h4 class=\"label\"> Update Cover Image </h4>\n            <hr />\n            <input type=\"file\" name=\"postimage\" accept=\"image/x-png,image/jpeg\" (change)=\"checkFileType(postimage); setFile($event)\"\n                #postimage ngModel>\n          </div>\n\n          <div class=\"form-group\">\n            <input type=\"submit\" class=\"btn btn-info submit\">\n          </div>\n          <small>Changing this will overwrite previous image.</small>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1134,6 +1134,23 @@ var EditpostComponent = /** @class */ (function () {
         this.clearMessages();
         if (this.validateInput(form.value)) {
             if (confirm("Are you sure you want to edit this post?")) {
+                var fd = new FormData();
+                if (this.postImage) {
+                    fd.append('postimage', this.postImage, this.postImage.name);
+                }
+                else {
+                    fd.append('postimage', 'noimage');
+                }
+                fd.append('id', this.id);
+                fd.append('title', form.value.title);
+                fd.append('body', form.value.body);
+                fd.append('cb_machinelearning', this.cb_machinelearning.toString());
+                fd.append('cb_mobile', this.cb_mobile.toString());
+                fd.append('cb_other', this.cb_other.toString());
+                fd.append('cb_robotics', this.cb_robotics.toString());
+                fd.append('cb_software', this.cb_software.toString());
+                fd.append('cb_technews', this.cb_technews.toString());
+                fd.append('cb_web', this.cb_web.toString());
                 var data = {
                     id: this.id,
                     title: form.value.title,
@@ -1146,16 +1163,7 @@ var EditpostComponent = /** @class */ (function () {
                     cb_technews: this.cb_technews.toString(),
                     cb_web: this.cb_web.toString(),
                 };
-                this.postService.updatePost(data).subscribe(function (data) {
-                    var response = JSON.parse(JSON.stringify(data));
-                    if (response.success) {
-                        alert("Post Updated Successfully");
-                        window.location.href = "/";
-                    }
-                }, function (err) {
-                    console.log(err);
-                    throw err;
-                });
+                this.postService.updatePost(fd);
             }
         }
     };
@@ -2164,7 +2172,15 @@ var PostService = /** @class */ (function () {
         };
     };
     PostService.prototype.updatePost = function (post) {
-        return this.http.post("/api/posts/update", post);
+        var xhr = new XMLHttpRequest;
+        xhr.open('POST', '/api/posts/update', true);
+        xhr.send(post);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert("Post Updated Successfully");
+                window.location.href = "/";
+            }
+        };
     };
     PostService.prototype.deletePost = function (id) {
         return this.http.request("delete", "/api/posts/delete", { body: { id: id } });

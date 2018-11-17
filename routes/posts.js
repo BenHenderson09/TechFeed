@@ -147,35 +147,77 @@ router.post("/add", upload.single("postimage"), (req, res) => {
     }
 });
 
-router.post("/update", (req, res) => {
-    const id = req.body.id;
-    let categories = [];
+router.post("/update", upload.single("postimage"), (req, res) => {
+    
+    let postimage = "noimage";
+    let postimage_id = "";
 
-    for (let key in req.body) {
-        if (key.includes('cb_')) {
-            if (req.body[key] == 'true') {
-                categories.push(key);
-            }
-        }
+    if (req.file) {
+
+        // Upload new image to static file db
+        cloudinary.v2.uploader.upload(req.file.path, {
+            quality: "auto",
+            width: 800,
+            height: 300,
+            crop: "fit"
+         }, (err, result) => {
+            if (err) { console.log(err); throw err; }
+
+            postimage = result.secure_url;
+            postimage_id = result.public_id;
+
+            // Delete it from disk storage
+            fs.unlink(req.file.path, (err) => {
+                if (err) throw err;
+            });
+
+            imageData = {postimage: postimage, postimage_id: postimage_id};
+            updatePost();
+        });
+
+    } else {
+        imageData = {postimage: postimage, postimage_id: postimage_id};
+        updatePost();
     }
 
-    Post.findOne({ _id: id }, (err, post) => {
-        if (err) { console.log(err); throw err }
+    function updatePost(){
+        let categories = [];
 
-        if (validate(req.body, post)) {
-            // Update post content
-            post.title = req.body.title;
-            post.body = req.body.body;
-            post.categories = categories;
-
-            post.save((err, post) => {
-                if (err) { console.log(err); throw err; }
-                res.json({ message: "Post updated successfully.", success: true });
-            });
-        } else {
-            res.sendStatus(403);
+        for (let key in req.body) {
+            if (key.includes('cb_')) {
+                if (req.body[key] == 'true') {
+                    categories.push(key);
+                }
+            }
         }
-    });
+        
+        Post.findOne({ _id: req.body.id }, (err, post) => {
+            if (err) { console.log(err); throw err }
+
+            if (validate(req.body, post)) {
+                // Update post content
+                let oldImage = post.postimage_id;
+                post.title = req.body.title;
+                post.body = req.body.body;
+                post.categories = categories;
+                post.postimage = imageData.postimage;
+                post.postimage_id = imageData.postimage_id;
+
+                // Delete old image
+                cloudinary.v2.uploader.destroy(oldImage, (err, result) => {
+                    if (err) { console.log(err); throw err; }
+
+                    post.save((err, post) => {
+                        if (err) { console.log(err); throw err; }
+                        res.json({ message: "Post updated successfully.", success: true });
+                    });
+                });
+
+            } else {
+                res.sendStatus(403);
+            }
+        });
+    }
 
     function validate(data, post) {
         if (!req.user || req.user.username != post.author) {
@@ -189,6 +231,7 @@ router.post("/update", (req, res) => {
         }
         return true;
     }
+    
 });
 
 router.delete("/delete", (req, res) => {
