@@ -1,0 +1,57 @@
+<div class="holder">
+  <div class="box">
+    <div class="content top-buffer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+              &nbsp;
+          </div>
+          <div class="col-sm">
+            <h1 class="header">Registration</h1>
+          </div>
+          <div class="col-sm">
+            &nbsp;
+          </div>
+        </div>
+      </div>
+      <hr>
+      <img src="../../../assets/default-user-image.png" class="profile-img">
+      <div class="user-form">
+        <form (submit)="register($event)">
+          <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="newUser.username">
+          <div class="credentials" id="username-credentials" *ngIf="usernameMsg">
+            <hr>
+            <p id="username-message">{{ usernameMsg }}</p>
+          </div>
+          <br>
+          <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="newUser.email">
+          <div class="credentials" id="email-credentials" *ngIf="emailMsg">
+            <hr>
+            <p id="email-message">{{ emailMsg }}</p>
+          </div>
+          <br>
+          <input type="text" class="form-control" name="fullname" placeholder="Fullname" [(ngModel)]="newUser.fullname">
+          <div class="credentials" id="fullname-credentials" *ngIf="fullnameMsg">
+            <hr>
+            <p id="fullname-message">{{ fullnameMsg }}</p>
+          </div>
+          <br>
+          <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="newUser.password">
+          <div class="credentials" id="password-credentials" *ngIf="passwordMsg">
+            <hr>
+            <p id="password-message">{{ passwordMsg }}</p>
+          </div>
+          <br>
+          <input type="password" class="form-control" name="password_resubmit" placeholder="Retype password" [(ngModel)]="newUser.passwordResubmit">
+          <div class="credentials" id="password_resubmit-credentials" *ngIf="passwordResubmitMsg">
+            <hr>
+            <p id="password_resubmit-message">{{ passwordResubmitMsg }}</p>
+          </div>
+          <br>
+          <input class="submit-btn" type="submit">
+          <a class="registration" routerLink="../login">Login</a> | <a class="registration" routerLink="/">Home</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

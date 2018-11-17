@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+<div class="container top-buffer">
+  <div class="search">
+    <form>
+      <div class="input-group mb-3">
+        <input type="text" name = "posts" class="form-control  search-input" placeholder="Search posts" aria-describedby="basic-addon2"
+         [(ngModel)]="searchText" (keydown)="checkKey($event)">
+        <div class="input-group-append">
+          <button class="btn btn-info btn-search" type="button" (click)="search()">Search</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Filter selection -->
+
+    <div class="btn-group filter">
+      <div class="dropdown">
+        <button class="btn dropdown-toggle btn-categories filter-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{ categoryFilter }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <h5 class="dropdown-item" (click)="setCategoryFilter('All Categories')">All Categories</h5>
+          <h5 class="dropdown-item" (click)="setCategoryFilter('Software')">Software</h5>
+          <h5 class="dropdown-item" (click)="setCategoryFilter('Web')">Web</h5>
+          <h5 class="dropdown-item" (click)="setCategoryFilter('Machine Learning')">Machine Learning</h5>
+          <h5 class="dropdown-item" (click)="setCategoryFilter('Robotics')">Robotics</h5>
+          <h5 class="dropdown-item" (click)="setCategoryFilter('Mobile')">Mobile</h5>
+          <h5 class="dropdown-item" (click)="setCategoryFilter('Tech News')">Tech News</h5>
+          <h5 class="dropdown-item" (click)="setCategoryFilter('Other')">Other</h5>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle btn-sort filter-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{ sortFilter }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <h5 class="dropdown-item" (click)="setSortFilter('Most Votes')">Most Votes</h5>
+          <h5 class="dropdown-item" (click)="setSortFilter('Least Votes')">Least Votes</h5>
+          <h5 class="dropdown-item" (click)="setSortFilter('Newest')">Newest</h5>
+        </div>
+      </div>
+    </div>
+    <hr />
+
+    <!-- Display Posts -->
+    <div class="posts top-buffer" *ngIf="posts.length > 0">
+      <div *ngFor="let post of posts">
+        <div class="post">
+          <a href="/posts/view/{{ post._id }}">
+            <h1 class="post-title">{{ post.title }}</h1>
+          </a>
+          <hr />
+          <a href="/posts/view/{{ post._id }}">
+            <div class="image">
+              <img *ngIf="post.postimage != 'noimage'" src="{{ post.postimage }}" class="post-image">
+              <img *ngIf="post.postimage == 'noimage'" src="../../../assets/noimage.png" class="post-image">
+            </div>
+          </a>
+          <hr />
+
+          <div class="bottom">
+            <div class="row">
+              <div class="col">
+                <div class="categories btn-group" *ngIf="!mobile() && post.categories.length > 0">
+                  <div class="category" *ngFor="let category of post.categories">
+                    <!-- Software -->
+                    <div class="row">
+                      <div class="col-md-4 col-lg-2">
+                        <button class="btn btn-primary" *ngIf="category == 'cb_software'"> Software </button>
+                      </div>
+                    </div>
+                    <!-- Web -->
+                    <button class="btn btn-success" *ngIf="category == 'cb_web'"> Web </button>
+                    <!-- Machine Learning -->
+                    <button class="btn btn-info" *ngIf="category == 'cb_machinelearning'"> Machine Learning </button>
+                    <!-- Robotics -->
+                    <button class="btn btn-danger" *ngIf="category == 'cb_robotics'"> Robotics </button>
+                    <!-- Mobile -->
+                    <button class="btn btn-warning" *ngIf="category == 'cb_mobile'"> Mobile </button>
+                    <!-- Tech News -->
+                    <button class="btn btn-light" *ngIf="category == 'cb_technews'"> Tech News </button>
+                    <!-- Other -->
+                    <button class="btn btn-dark" *ngIf="category == 'cb_other'"> Other </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="post-info">
+                <div class="author">
+                  Written by: <a href="/account/view/{{post.author}}">{{post.author}}</a>
+                </div>
+                <div class="date">
+                  {{ post.created }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

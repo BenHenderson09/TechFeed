@@ -1,0 +1,22 @@
+.btnAuth{
+    margin:5px;
+}
+
+.logo{
+    font-family: Pacifico;
+    font-size: 25px;
+    cursor: default;
+    color:white !important;
+}
+
+.nav-content ul a{
+    font-family: Pacifico;
+}
+
+.nav-content ul a:hover{
+    border-bottom: 2px solid turquoise;
+}
+
+.username{
+    color:white;
+}

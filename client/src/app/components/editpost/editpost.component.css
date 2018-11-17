@@ -1,0 +1,56 @@
+.box{
+    margin-top:2%;
+    margin-bottom: 5%;
+}
+
+.box-header{
+    margin-top: 2%;
+    text-align: center;
+    font-family: Pacifico;
+}
+
+.card{
+    border-radius: 20px;
+}
+
+.text-box{
+    border-radius: 20px;
+    font-size: 20px;
+    height: 5%;
+}
+
+.label{
+    font-family: Pacifico;
+    font-size: 30px;
+}
+
+.category{
+    margin-right:5px;
+    margin-left:5px;
+    display: inline;
+}
+
+.category input{
+    margin-left:6px;
+}
+
+.submit{
+    float: right;
+}
+
+.form-buffer{
+    margin-top: 5%;
+}
+
+.validation{
+    color:red;
+}
+
+.validation hr{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid red;
+    margin: 1em 0;
+    padding: 0; 
+}
