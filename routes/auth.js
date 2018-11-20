@@ -394,7 +394,6 @@ router.post("/username", (req, res) => {
 });
 
 // --- Logout ---
-
 router.get('/logout', function (req, res) {
     req.logout();
     res.redirect("/");

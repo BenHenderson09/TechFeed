@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+<div class="container box">
+  <div class="card">
+    <h1 class="box-header">Edit Post</h1>
+    <hr />
+    <div class="card-body">
+      <form #postForm="ngForm" enctype="multipart/form-data" (ngSubmit)="updatePost(postForm, $event)">
+        <div class="form-group">
+          <h4 class="label"> Title </h4>
+          <hr />
+          <input type="text" class="form-control text-box" name="title" placeholder="Title" [(ngModel)]="titleContent"
+            ngModel>
+
+          <div class="validation" *ngIf="titleMsg">
+            <hr>
+            <p id="title-message">{{ titleMsg }}</p>
+          </div>
+        </div>
+        <div class="form-group form-buffer">
+          <h4 class="label"> Body </h4>
+          <hr />
+          <ck-editor name="editor" name="body" skin="moono-lisa" language="en" [fullPage]="true" [(ngModel)]="bodyContent" #body ngModel></ck-editor>
+          <div class="validation" *ngIf="bodyMsg">
+            <hr>
+            <p id="body-message">{{ bodyMsg }}</p>
+          </div>
+        </div>
+        <div class="form-group form-buffer">
+          <h4 class="label"> Categories </h4>
+          <hr />
+          <!-- Software --->
+          <div class="category">
+            <button class="btn btn-primary" (click)="changeCheck('cb_software')">Software</button>
+            <input type="checkbox" name="cb_software" [checked]="cb_software" (change)="cb_software = !cb_software">
+          </div>
+
+          <!-- Web -->
+          <div class="category">
+            <button class="btn btn-success" (click)="changeCheck('cb_web')"> Web </button>
+            <input type="checkbox" name="cb_web" [checked]="cb_web" (change)="cb_web = !cb_web">
+          </div>
+
+          <!-- Machine Learning -->
+          <div class="category">
+            <button class="btn btn-info" (click)="changeCheck('cb_machinelearning')"> Machine Learning </button>
+            <input type="checkbox" name="cb_machinelearning" [checked]="cb_machinelearning" (change)="cb_machinelearning = !cb_machinelearning">
+          </div>
+
+          <!-- Robotics -->
+          <div class="category">
+            <button class="btn btn-danger" (click)="changeCheck('cb_robotics')"> Robotics </button>
+            <input type="checkbox" name="cb_robotics" [checked]="cb_robotics" (change)="cb_robotics = !cb_robotics">
+          </div>
+
+          <!-- Mobile -->
+          <div class="category">
+            <button class="btn btn-warning" (click)="changeCheck('cb_mobile')"> Mobile </button>
+            <input type="checkbox" name="cb_mobile" [checked]="cb_mobile" (change)="cb_mobile = !cb_mobile">
+          </div>
+
+          <!-- Tech News -->
+          <div class="category">
+            <button class="btn btn-light" (click)="changeCheck('cb_technews')"> Tech News </button>
+            <input type="checkbox" name="cb_technews" [checked]="cb_technews" (change)="cb_technews = !cb_technews">
+          </div>
+
+          <!-- Other -->
+          <div class="category">
+            <button class="btn btn-dark" (click)="changeCheck('cb_other')"> Other </button>
+            <input type="checkbox" name="cb_other" [checked]="cb_other" (change)="cb_other = !cb_other">
+          </div>
+
+          <div class="form-group form-buffer">
+            <h4 class="label"> Update Cover Image </h4>
+            <hr />
+            <input type="file" name="postimage" accept="image/x-png,image/jpeg" (change)="checkFileType(postimage); setFile($event)"
+                #postimage ngModel>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-info submit">
+          </div>
+          <small>Changing this will overwrite previous image.</small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

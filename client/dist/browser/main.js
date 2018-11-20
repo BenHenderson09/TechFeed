@@ -284,6 +284,7 @@ var AppModule = /** @class */ (function () {
                 ngx_quill__WEBPACK_IMPORTED_MODULE_6__["QuillModule"],
                 ngx_ckeditor__WEBPACK_IMPORTED_MODULE_0__["CKEditorModule"]
             ],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
             providers: [],
         })
     ], AppModule);
@@ -2267,7 +2268,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\HP\Desktop\CodingMain\Finished Projects\Age_14-17\websites_webapps\TechFeed\client\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\HP\Desktop\CodingMain\Finished Projects\Age_14-17\websites_webapps\TechFeed_SEO_Test\TechFeed\client\src\main.ts */"./src/main.ts");
 
 
 /***/ })

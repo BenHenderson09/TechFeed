@@ -1,0 +1,27 @@
+.card{
+    border-radius: 20px;
+}
+
+.header{
+    text-align: center;
+    font-family: pacifico;
+    padding-top:2%;
+}
+
+.sub-header{
+    font-family: pacifico;
+    padding-top:4%;
+    margin-left:5%;
+}
+
+.card-body{
+    font-size: 20px !important;
+}
+
+ul{
+    font-size: 20px !important;
+}
+
+.container{
+    margin-bottom: 5%;
+}

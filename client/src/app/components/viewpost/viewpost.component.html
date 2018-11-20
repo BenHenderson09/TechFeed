@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="box">
+    <div [innerHTML]="body" class="body"> </div>
+    <div class="footer">
+      <hr />
+      <div class="post-info row">
+        <div class="voting col">
+
+          <div *ngIf="!upvoted && !downvoted">
+            <i class="fas fa-arrow-up fa-lg upvote" (click)="upvote()"></i>
+            <h5 class="votecount">{{ formatVotes() }}</h5>
+            <i class="fas fa-arrow-down fa-lg downvote" (click)="downvote()"></i>
+          </div>
+
+          <div *ngIf="downvoted">
+            <i class="fas fa-arrow-up fa-lg upvote" (click)="upvote()"></i>
+            <h5 class="votecount">{{ formatVotes() }}</h5>
+            <i class="fas fa-arrow-down fa-lg downvoted" (click)="downvote()"></i>
+          </div>
+
+          <div *ngIf="upvoted">
+            <i class="fas fa-arrow-up f062 fa-lg upvoted" (click)="upvote()"></i>
+            <h5 class="votecount">{{ formatVotes() }}</h5>
+            <i class="fas fa-arrow-down fa-lg downvote" (click)="downvote()"></i>
+          </div>
+
+        </div>
+        <div class="info-end col">
+          <div class="author">
+            Written by: <a href="/account/view/{{author}}">{{ author }}</a>
+          </div>
+          <div class="date">
+            {{ created }}
+          </div>
+          <div class="post-btns" *ngIf="CurrentUser.username == author">
+            <button class="btn btn-info" (click)="edit()">Edit</button>&nbsp;
+            <button class="btn btn-danger" (click)="delete()">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
