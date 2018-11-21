@@ -1,1 +1,1 @@
-web: node client/local.js
+web: npm start

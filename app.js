@@ -12,9 +12,18 @@ const auth           = require("./routes/auth.js");
 const posts          = require("./routes/posts.js");
 const protected      = require("./routes/protected.js");
 const cloudinary     = require("cloudinary");
+const cors           = require("cors");
 const router         = express.Router();
 
 process.env.SCRT_KEY = "MY_ScRt23";
+
+router.use(cors());
+router.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 router.use((req,res,next)=>{
     process.env.user = req.user || undefined;
