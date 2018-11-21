@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node client/server.ts"
+	"build": "cd client && ng build --prod",
+    "start": "cd client && ng build --prod && cd.. && ts-node client/server.ts"
   },
   "author": "Ben Henderson",
   "license": "ISC",
