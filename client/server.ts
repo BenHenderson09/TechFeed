@@ -56,7 +56,7 @@ app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
 maxAge: '1y'
 }));
 
-// Get api routes configured
+// Get api routes configured.
 const apiRoutes = require("../app.js");
 app.use("/api", apiRoutes);
 

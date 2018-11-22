@@ -27,6 +27,22 @@
     "prerender-node": "^3.2.1",
     "typescript": "~2.7.2",
     "ts-node": "~5.0.1",
+
+    "@angular/animations": "^6.0.3",
+    "@angular/common": "^6.0.3",
+    "@angular/compiler": "^6.0.3",
+    "@angular/core": "^6.0.3",
+    "@angular/forms": "^6.0.3",
+    "@angular/http": "^6.0.3",
+    "@angular/platform-browser": "^6.0.0",
+    "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/platform-server": "^6.0.0",
+    "@angular/router": "^6.0.3",
+    "@ckeditor/ckeditor5-angular": "^1.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^11.1.1",
+    "@ng-toolkit/universal": "^1.1.41-beta.110",
+    "@nguniversal/express-engine": "^6.0.0",
+    "@nguniversal/module-map-ngfactory-loader": "^6.0.0",
     "zone.js": "^0.8.26"
   }
 }
