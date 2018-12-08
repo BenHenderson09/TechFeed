@@ -26,7 +26,6 @@
     "passport-http": "*",
     "passport-local": "*",
     "prerender-node": "^3.2.1",
-
     "@angular/animations": "^6.0.3",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",

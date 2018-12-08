@@ -17,6 +17,7 @@ const router         = express.Router();
 
 process.env.SCRT_KEY = "MY_ScRt23";
 
+router.use(require('prerender-node'));
 router.use(cors());
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');

@@ -12,19 +12,21 @@ import { EditpostComponent } from './components/editpost/editpost.component';
 import { AccountComponent } from './components/account/account.component';
 import { EditaccountComponent } from './components/editaccount/editaccount.component';
 import { ViewaccountComponent } from './components/viewaccount/viewaccount.component';
-import { enableProdMode } from '@angular/core';
+
+import { ResolverService } from './services/resolver.service';
+import { ViewpostResolverService } from './services/viewpost-resolver.service';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent }, 
   { path: 'posts/add', component: AddpostComponent }, 
-  { path: 'posts/view/:id', component: ViewpostComponent },
+  { path: 'posts/view/:id', component: ViewpostComponent, resolve: { post: ViewpostResolverService } },
   { path: 'posts/edit/:id', component: EditpostComponent},
   { path: 'account', component: AccountComponent},
   { path: 'account/edit', component: EditaccountComponent },
   { path: 'account/view/:username', component: ViewaccountComponent},
-  { path: '**', component: ContentComponent }
+  { path: '**', component: ContentComponent, resolve: { posts: ResolverService}}
 ];
 
 @NgModule({
@@ -33,6 +35,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [ RouterModule ],
+
+  providers: [ ResolverService, ViewpostResolverService ],
+
   declarations: []
 })
 export class AppRoutingModule {}

@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container">
-  <div class="box">
+  <div class="box" *ngIf="post">
     <div [innerHTML]="body" class="body"> </div>
     <div class="footer">
       <hr />
@@ -28,12 +28,12 @@
         </div>
         <div class="info-end col">
           <div class="author">
-            Written by: <a href="/account/view/{{author}}">{{ author }}</a>
+            Written by: <a href="/account/view/{{post.author}}">{{ post.author }}</a>
           </div>
           <div class="date">
-            {{ created }}
+            {{ post.created }}
           </div>
-          <div class="post-btns" *ngIf="CurrentUser.username == author">
+          <div class="post-btns" *ngIf="CurrentUser.username == post.author">
             <button class="btn btn-info" (click)="edit()">Edit</button>&nbsp;
             <button class="btn btn-danger" (click)="delete()">Delete</button>
           </div>
@@ -41,3 +41,4 @@
       </div>
     </div>
   </div>
+</div>

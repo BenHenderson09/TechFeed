@@ -1,30 +1,25 @@
-import { Component, OnInit , Inject} from '@angular/core';
+import { Component, OnInit , Inject, ChangeDetectorRef, SimpleChanges, OnChanges} from '@angular/core';
 import { PostService } from '../../services/post.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css', '../global.css']
 })
+
 export class ContentComponent implements OnInit {
   searchText : String;
   categoryFilter: String = "All Categories";
-  sortFilter: String = "Most Votes";
-  posts: any = {};
+  sortFilter: String = "Newest";
+  posts: any;
+  unfilteredPosts: any;
 
+  constructor(private postService:PostService, private route:ActivatedRoute){}
 
-  constructor(private postService: PostService) {
-    this.postService.getPosts().subscribe(
-      data => {
-        const response = JSON.parse(JSON.stringify(data));
-        this.posts = response;
-
-        this.setSortFilter(this.sortFilter);
-      },
-      err => {
-        console.log(err); throw err;
-      }
-    );
+  ngOnInit() {
+    this.unfilteredPosts = this.route.snapshot.data['posts'];
+    this.posts = this.route.snapshot.data['posts'];
   }
 
   checkKey(event){
@@ -36,23 +31,12 @@ export class ContentComponent implements OnInit {
   search(){
     let filtered = [];
 
-    this.postService.getPosts().subscribe(
-      data => {
-        const response = JSON.parse(JSON.stringify(data));
-        this.posts = response;
-
-        this.posts.forEach(post =>{
-          if (post.title.includes(this.searchText)){
-            filtered.push(post);
-          }
-        });
-        this.posts = filtered;
-        this.setSortFilter(this.sortFilter);
-      },
-      err => {
-        console.log(err); throw err;
+    this.posts.forEach(post =>{
+      if (post.title.toLowerCase().includes(this.searchText.toLowerCase())){
+        filtered.push(post);
       }
-    );
+    });
+    this.posts = filtered;
   }
 
   setCategoryFilter(filter) {
@@ -81,66 +65,42 @@ export class ContentComponent implements OnInit {
         this.sortByCategory("other");
         break;
       case "All Categories":
-      this.postService.getPosts().subscribe(
-        data => {
-          const response = JSON.parse(JSON.stringify(data));
-          this.posts = response;
-  
-          this.setSortFilter(this.sortFilter);
-        },
-        err => {
-          console.log(err); throw err;
-        }
-      );
+        this.posts = this.unfilteredPosts;
+        this.setSortFilter(this.sortFilter);
     }
   }
 
   sortByCategory(category) {
     let filtered = [];
-    this.postService.getPosts().subscribe(
-      data => {
-        const response = JSON.parse(JSON.stringify(data));
-        this.posts = JSON.parse(JSON.stringify(response));
-
-        this.posts.forEach((post, index) => {
-          let containsFilter = false;
-          post.categories.forEach(cat => {
-            if (cat.includes(category)) {
-              containsFilter = true;
-            }
-          });
-
-          if (containsFilter){
-            filtered.push(this.posts[index]);
-          }
-        }); 
-
-        this.posts = filtered;
     
-        if (this.sortFilter != "Newest") {
-          this.setSortFilter(this.sortFilter);
-        }
+    this.posts = this.unfilteredPosts;
 
-      },
-      err => {
-        console.log(err); throw err;
+    this.posts.forEach((post, index) => {
+      let containsFilter = false;
+      post.categories.forEach(cat => {
+        if (cat.includes(category)) {
+          containsFilter = true;
+        }
+      });
+
+      if (containsFilter){
+        filtered.push(this.posts[index]);
       }
-    );
+    }); 
+
+    this.posts = filtered;
+
+    if (this.sortFilter != "Newest") {
+      this.setSortFilter(this.sortFilter);
+    }
   }
 
   setSortFilter(filter) {
     this.sortFilter = filter;
 
     if (filter == "Newest") {
-      this.postService.getPosts().subscribe(
-        data => {
-          const response = JSON.parse(JSON.stringify(data));
-          this.posts = response;
-        },
-        err => {
-          console.log(err); throw err;
-        }
-      );
+      this.posts = this.unfilteredPosts;
+      this.setCategoryFilter(this.categoryFilter);
     }
 
     if (filter == "Most Votes") {
@@ -153,13 +113,13 @@ export class ContentComponent implements OnInit {
   }
 
   mobile() {
-    if (window.innerWidth <= 992) {
-      return true;
+    try{
+      if (window.innerWidth <= 992) {
+        return true;
+      }
+      return false;
+    } catch(e){
+      return false;
     }
-    return false;
   }
-
-  ngOnInit() {
-  }
-
 }

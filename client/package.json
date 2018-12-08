@@ -11,7 +11,7 @@
     "build:server:prod": "ng run client:server && webpack --config webpack.server.config.js --progress --colors",
     "build:browser:prod": "ng build --prod",
     "build:prod": "npm run build:server:prod && npm run build:browser:prod",
-    "server":"ts-node server.ts"
+    "server": "ts-node server.ts"
   },
   "private": true,
   "dependencies": {

@@ -2,15 +2,16 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';  
 
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContentComponent } from './components/content/content.component';
-import { AppRoutingModule } from './/app-routing.module';
 import { AboutComponent } from './components/about/about.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,6 +21,9 @@ import { EditpostComponent } from './components/editpost/editpost.component';
 import { AccountComponent } from './components/account/account.component';
 import { EditaccountComponent } from './components/editaccount/editaccount.component';
 import { ViewaccountComponent } from './components/viewaccount/viewaccount.component';
+
+import { ResolverService } from './services/resolver.service';
+import { ViewpostResolverService } from './services/viewpost-resolver.service';
 
 @NgModule({
   declarations: [
@@ -44,9 +48,13 @@ import { ViewaccountComponent } from './components/viewaccount/viewaccount.compo
     ReactiveFormsModule,
     HttpClientModule,
     QuillModule,
-    CKEditorModule
+    CKEditorModule,
+    HttpModule
   ],
   bootstrap: [AppComponent],
-  providers: [],
+  providers: [
+    ResolverService,
+    ViewpostResolverService
+  ],
 })
 export class AppModule { }
