@@ -4,10 +4,12 @@ import {enableProdMode} from '@angular/core';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import {provideModuleMap} from '@nguniversal/module-map-ngfactory-loader';
 
+
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as compression from 'compression';
+import * as http from 'http';
     
 import {join} from 'path';
 
@@ -17,6 +19,7 @@ app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -60,6 +63,9 @@ maxAge: '1y'
 const apiRoutes = require("../app.js");
 app.use("/api", apiRoutes);
 
+// Start up the Node server
+const port = process.env.PORT || 3000;
+
 app.get('/*', (req, res) => {
     res.render('index', {req, res}, (err, html) => {
         if (html) {
@@ -70,9 +76,6 @@ app.get('/*', (req, res) => {
         }
     });
 });
-
-// Start up the Node server
-const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Listening on port: ${port}`);

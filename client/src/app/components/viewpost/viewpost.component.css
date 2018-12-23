@@ -1,5 +1,6 @@
 .box{
     height: 100%;
+    width:100%;
     background-color: white;
     border-radius: 20px;
     margin-top:5%;
@@ -75,5 +76,10 @@
 
 .body{
     padding:1%;
-    word-wrap: break-word;
+    word-wrap: break-word; 
+}
+
+:host ::ng-deep img{ 
+    height: auto !important;
+    max-width: 100% !important;
 }

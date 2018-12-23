@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { delay, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
-
+export class PostService{
   constructor(private http:HttpClient) { }
+
+  posts:any;
 
   getPosts(){
     return this.http.get("/api/posts/all");
