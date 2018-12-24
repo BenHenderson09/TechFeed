@@ -3249,7 +3249,7 @@ exports.ViewpostResolverService = ViewpostResolverService;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: true,
-    local: true,
+    local: false,
     localURL: "http://localhost:3000",
     prodURL: "http://www.technologyfeed.org"
 };
@@ -3288,7 +3288,7 @@ exports.LAZY_MODULE_MAP = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\HP\Desktop\CodingMain\Finished Projects\Age_14-17\websites_webapps\TechFeed\client\src\main.server.ts */"./src/main.server.ts");
+module.exports = __webpack_require__(/*! C:\Users\HP\Desktop\CodingMain\Finished Projects\Age_14-17\websites_webapps\TechFeedProd\client\src\main.server.ts */"./src/main.server.ts");
 
 
 /***/ }),
