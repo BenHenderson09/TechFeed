@@ -1,6 +1,19 @@
-import { Component, OnInit , Inject, ChangeDetectorRef, SimpleChanges, OnChanges} from '@angular/core';
+import { Component, AfterViewInit, OnInit} from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { ActivatedRoute } from '@angular/router';
+
+/*
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-7q+j-ex+6d+tl"
+     data-ad-client="ca-pub-5657057422841152"
+     data-ad-slot="6827494002"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+*/
 
 @Component({
   selector: 'app-content',
@@ -8,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./content.component.css', '../global.css']
 })
 
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, AfterViewInit {
   searchText : String;
   categoryFilter: String = "All Categories";
   sortFilter: String = "Newest";
@@ -16,6 +29,12 @@ export class ContentComponent implements OnInit {
   unfilteredPosts: any;
 
   constructor(private postService:PostService, private route:ActivatedRoute){}
+
+  ngAfterViewInit(){
+    try {
+      (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+    } catch (e) {}
+  }
 
   ngOnInit() {
     this.unfilteredPosts = this.route.snapshot.data['posts'];
