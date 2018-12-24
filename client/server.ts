@@ -20,6 +20,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Robots.txt for crawlers
+app.use('/robots.txt', (req, res)=>{
+    res.type('text/plain');
+    res.send("User-agent: Mediapartners-Google\nDisallow:");
+});
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
