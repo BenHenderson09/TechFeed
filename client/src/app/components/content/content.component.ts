@@ -27,13 +27,14 @@ export class ContentComponent implements OnInit, AfterViewInit {
   sortFilter: String = "Newest";
   posts: any;
   unfilteredPosts: any;
+  loaded: boolean = false;
 
   constructor(private postService:PostService, private route:ActivatedRoute){}
 
   ngAfterViewInit(){
     try {
-      (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-    } catch (e) {}
+          (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+        } catch (e) {}
   }
 
   ngOnInit() {

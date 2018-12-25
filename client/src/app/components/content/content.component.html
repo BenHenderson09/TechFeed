@@ -42,29 +42,22 @@
     </div>
     <hr /> 
 
-	<!-- Display ad -->
-	  <ins class="adsbygoogle"
-		  style="display:block"
-		  data-ad-format="fluid"
-		  data-ad-layout-key="-7q+j-ex+6d+tl"
-		  data-ad-client="ca-pub-5657057422841152"
-		  data-ad-slot="6827494002">
-	  </ins>
-	
+     <!-- Display ad -->
+     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+     <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-format="fluid"
+          data-ad-layout-key="-7q+j-ex+6d+tl"
+          data-ad-client="ca-pub-5657057422841152"
+          data-ad-slot="6827494002"></ins>
+     <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+     </script>
+
     <!-- Display Posts -->
     <div class="posts top-buffer" *ngIf="posts">
-	
-	<!-- Display ad -->
-	  <ins class="adsbygoogle"
-		  style="display:block"
-		  data-ad-format="fluid"
-		  data-ad-layout-key="-7q+j-ex+6d+tl"
-		  data-ad-client="ca-pub-5657057422841152"
-		  data-ad-slot="6827494002">
-	  </ins>
-	  
       <div *ngFor="let post of posts">
-       
+     
         <div class="post">
           <a href="/posts/view/{{ post._id }}">
             <h1 class="post-title">{{ post.title }}</h1>
