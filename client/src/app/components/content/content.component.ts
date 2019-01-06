@@ -32,14 +32,16 @@ export class ContentComponent implements OnInit, AfterViewInit {
   constructor(private postService:PostService, private route:ActivatedRoute){}
 
   ngAfterViewInit(){
-    try {
-          (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-        } catch (e) {}
+    setTimeout(()=>{
+      try {
+                (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+            } catch (e) {}
+    }), 2000;
   }
 
   ngOnInit() {
     this.unfilteredPosts = this.route.snapshot.data['posts'];
-    this.posts = this.route.snapshot.data['posts'];
+    this.posts = this.unfilteredPosts;
   }
 
   checkKey(event){

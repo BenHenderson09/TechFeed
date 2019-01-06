@@ -1284,14 +1284,16 @@ var ContentComponent = /** @class */ (function () {
         this.loaded = false;
     }
     ContentComponent.prototype.ngAfterViewInit = function () {
-        try {
-            (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-        }
-        catch (e) { }
+        setTimeout(function () {
+            try {
+                (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+            }
+            catch (e) { }
+        }), 2000;
     };
     ContentComponent.prototype.ngOnInit = function () {
         this.unfilteredPosts = this.route.snapshot.data['posts'];
-        this.posts = this.route.snapshot.data['posts'];
+        this.posts = this.unfilteredPosts;
     };
     ContentComponent.prototype.checkKey = function (event) {
         if (event.key == "Enter") {
