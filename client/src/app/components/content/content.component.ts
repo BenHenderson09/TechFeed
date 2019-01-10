@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit} from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { ActivatedRoute } from '@angular/router';
+import * as $ from 'jquery';
 
 /*
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -32,11 +33,13 @@ export class ContentComponent implements OnInit, AfterViewInit {
   constructor(private postService:PostService, private route:ActivatedRoute){}
 
   ngAfterViewInit(){
-    setTimeout(()=>{
       try {
-                (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+            let items = $('.adsbygoogle').length;
+            for(let i = 0; i < items; i++){
+              (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+            }
+                
             } catch (e) {}
-    }), 2000;
   }
 
   ngOnInit() {
