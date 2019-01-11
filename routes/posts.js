@@ -235,38 +235,46 @@ router.post("/update", upload.single("postimage"), (req, res) => {
 });
 
 router.delete("/delete", (req, res) => {
-    const id = req.body.id;
+    if (req.body){
 
-    Post.findOne({ _id: id }, (err, post) => {
-        if (err) { console.log(err); throw err; }
+        const id = req.body.id;
 
-        if (req.user.username == post.author) {
-            if (post.postimage != null && post.postimage != "noimage") {
+        if(id && req.user){
+            Post.findOne({ _id: id }, (err, post) => {
+                if (err) { console.log(err); throw err; }
 
-                // Delete image
-                cloudinary.v2.uploader.destroy(post.postimage_id, (err, result) => {
-                    if (err) { console.log(err); throw err; }
-                });
-            }
-                // Delete post
-                Post.deleteOne({ _id: id }, (err) => {
-                    if (err) { console.log(err); throw err; }
+                if (post){
+                    if (req.user.username == post.author) {
+                        if (post.postimage != null && post.postimage != "noimage") {
 
-                    User.findOne({ _id: req.user._id }, (err, user) => {
-                        if (err) { console.log(err); }
-                        user.posts--;
+                            // Delete image
+                            cloudinary.v2.uploader.destroy(post.postimage_id, (err, result) => {
+                                if (err) { console.log(err); throw err; }
+                            });
+                        }
+                            // Delete post
+                            Post.deleteOne({ _id: id }, (err) => {
+                                if (err) { console.log(err); throw err; }
 
-                        user.save((err, user) => {
-                            if (err) { console.log(err); throw err; }
-                            res.json({ message: "Post deleted successfully.", success: true });
-                        });
-                    });
-                });
-            
-        } else {
-            res.sendStatus(403);
+                                User.findOne({ _id: req.user._id }, (err, user) => {
+                                    if (err) { console.log(err); }
+                                    user.posts--;
+
+                                    user.save((err, user) => {
+                                        if (err) { console.log(err); throw err; }
+                                        res.json({ message: "Post deleted successfully.", success: true });
+                                    });
+                                });
+                            });
+                        
+                    } else {
+                        res.sendStatus(403);
+                    }
+                }
+            });
         }
-    });
+    }
+    
 });
 
 router.post("/upvote", (req, res) => {

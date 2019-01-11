@@ -1264,18 +1264,6 @@ var core_1 = __webpack_require__(/*! @angular/core */ "@angular/core");
 var post_service_1 = __webpack_require__(/*! ../../services/post.service */ "./src/app/services/post.service.ts");
 var router_1 = __webpack_require__(/*! @angular/router */ "@angular/router");
 var $ = __webpack_require__(/*! jquery */ "jquery");
-/*
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-7q+j-ex+6d+tl"
-     data-ad-client="ca-pub-5657057422841152"
-     data-ad-slot="6827494002"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-*/
 var ContentComponent = /** @class */ (function () {
     function ContentComponent(postService, route) {
         this.postService = postService;
