@@ -1293,11 +1293,62 @@ var ContentComponent = /** @class */ (function () {
     ContentComponent.prototype.search = function () {
         var _this = this;
         var filtered = [];
-        this.posts.forEach(function (post) {
-            if (post.title.toLowerCase().includes(_this.searchText.toLowerCase())) {
-                filtered.push(post);
-            }
-        });
+        if (this.categoryFilter == "All Categories") {
+            this.unfilteredPosts.forEach(function (post) {
+                if (post.title.toLowerCase().includes(_this.searchText.toLowerCase())) {
+                    filtered.push(post);
+                }
+            });
+        }
+        else {
+            this.unfilteredPosts.forEach(function (post) {
+                if (post.title.toLowerCase().includes(_this.searchText.toLowerCase())) {
+                    var containsFilter_1 = false;
+                    post.categories.forEach(function (cat) {
+                        switch (_this.categoryFilter) {
+                            case "Software":
+                                if (cat.includes("software")) {
+                                    containsFilter_1 = true;
+                                }
+                                break;
+                            case "Web":
+                                if (cat.includes("web")) {
+                                    containsFilter_1 = true;
+                                }
+                                break;
+                            case "Machine Learning":
+                                if (cat.includes("machinelearning")) {
+                                    containsFilter_1 = true;
+                                }
+                                break;
+                            case "Robotics":
+                                if (cat.includes("robotics")) {
+                                    containsFilter_1 = true;
+                                }
+                                break;
+                            case "Mobile":
+                                if (cat.includes("mobile")) {
+                                    containsFilter_1 = true;
+                                }
+                                break;
+                            case "Tech News":
+                                if (cat.includes("technews")) {
+                                    containsFilter_1 = true;
+                                }
+                                break;
+                            case "Other":
+                                if (cat.includes("other")) {
+                                    containsFilter_1 = true;
+                                }
+                                break;
+                        }
+                    });
+                    if (containsFilter_1) {
+                        filtered.push(post);
+                    }
+                }
+            });
+        }
         this.posts = filtered;
     };
     ContentComponent.prototype.setCategoryFilter = function (filter) {
@@ -1326,7 +1377,9 @@ var ContentComponent = /** @class */ (function () {
                 break;
             case "All Categories":
                 this.posts = this.unfilteredPosts;
-                this.setSortFilter(this.sortFilter);
+                if (this.sortFilter != "Newest") {
+                    this.setSortFilter(this.sortFilter);
+                }
         }
     };
     ContentComponent.prototype.sortByCategory = function (category) {
@@ -1370,7 +1423,6 @@ var ContentComponent = /** @class */ (function () {
             return false;
         }
         catch (e) {
-            return false;
         }
     };
     return ContentComponent;

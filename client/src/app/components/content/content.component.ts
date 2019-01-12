@@ -43,12 +43,68 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   search(){
     let filtered = [];
+    
+    if (this.categoryFilter == "All Categories"){
+      this.unfilteredPosts.forEach(post =>{
+        if (post.title.toLowerCase().includes(this.searchText.toLowerCase())){
+         filtered.push(post);
+        }
+      });
+    }
+    else {
 
-    this.posts.forEach(post =>{
-      if (post.title.toLowerCase().includes(this.searchText.toLowerCase())){
-        filtered.push(post);
-      }
-    });
+      this.unfilteredPosts.forEach((post) => {
+        if (post.title.toLowerCase().includes(this.searchText.toLowerCase())){
+              let containsFilter = false;
+              post.categories.forEach(cat => {
+                switch (this.categoryFilter) {
+                  case "Software":
+                    if (cat.includes("software")) {
+                      containsFilter = true;
+                    }
+                    break;
+                  case "Web":
+                    if (cat.includes("web")) {
+                      containsFilter = true;
+                    }
+                    break;
+                  case "Machine Learning":
+                    if (cat.includes("machinelearning")) {
+                      containsFilter = true;
+                    }
+                    break;
+                  case "Robotics":
+                    if (cat.includes("robotics")) {
+                      containsFilter = true;
+                    }
+                    break;
+                  case "Mobile":
+                    if (cat.includes("mobile")) {
+                      containsFilter = true;
+                    }
+                    break;
+                  case "Tech News":
+                    if (cat.includes("technews")) {
+                      containsFilter = true;
+                    }
+                    break;
+                  case "Other":
+                    if (cat.includes("other")) {
+                      containsFilter = true;
+                    }
+                    break;
+                }
+              });
+        
+              if (containsFilter){
+                filtered.push(post);
+              }
+            }
+    
+      });
+    }
+    
+    
     this.posts = filtered;
   }
 
@@ -79,8 +135,10 @@ export class ContentComponent implements OnInit, AfterViewInit {
         break;
       case "All Categories":
         this.posts = this.unfilteredPosts;
-        this.setSortFilter(this.sortFilter);
-    }
+        if (this.sortFilter != "Newest"){
+          this.setSortFilter(this.sortFilter);
+        }    
+      }
   }
 
   sortByCategory(category) {
@@ -132,7 +190,6 @@ export class ContentComponent implements OnInit, AfterViewInit {
       }
       return false;
     } catch(e){
-      return false;
     }
   }
 }
