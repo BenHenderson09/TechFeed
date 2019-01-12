@@ -151,6 +151,7 @@ router.post("/update", upload.single("postimage"), (req, res) => {
     
     let postimage = "noimage";
     let postimage_id = "";
+    let imageData;
 
     if (req.file) {
 
@@ -168,7 +169,7 @@ router.post("/update", upload.single("postimage"), (req, res) => {
 
             // Delete it from disk storage
             fs.unlink(req.file.path, (err) => {
-                if (err) throw err;
+            if (err){ throw err;}
             });
 
             imageData = {postimage: postimage, postimage_id: postimage_id};
@@ -196,22 +197,35 @@ router.post("/update", upload.single("postimage"), (req, res) => {
 
             if (validate(req.body, post)) {
                 // Update post content
-                let oldImage = post.postimage_id;
+                let oldImageID = post.postimage_id;
                 post.title = req.body.title;
                 post.body = req.body.body;
                 post.categories = categories;
-                post.postimage = imageData.postimage;
-                post.postimage_id = imageData.postimage_id;
 
-                // Delete old image
-                cloudinary.v2.uploader.destroy(oldImage, (err, result) => {
-                    if (err) { console.log(err); throw err; }
+                // If the image has not been specified and there is already an image in cloudinary,
+                // keep the image in cloudinary. Otherwise, set it to imageData.postimage.
+                if (!(imageData.postimage == "noimage" && post.postimage != "noimage")){
+                    post.postimage = imageData.postimage;
+                }
 
+                if (oldImageID != ""){
+                    // Delete old image
+                    cloudinary.v2.uploader.destroy(oldImageID, (err, result) => {
+                        if (err) { console.log(err); throw err; }
+
+                        post.save((err, post) => {
+                            if (err) { console.log(err); throw err; }
+                            res.json({ message: "Post updated successfully.", success: true });
+                        });
+                    });
+                }
+                else {
                     post.save((err, post) => {
                         if (err) { console.log(err); throw err; }
                         res.json({ message: "Post updated successfully.", success: true });
                     });
-                });
+                }
+                
 
             } else {
                 res.sendStatus(403);

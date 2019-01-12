@@ -1799,7 +1799,7 @@ var EditpostComponent = /** @class */ (function () {
                 _this.CurrentUser.created = response.created;
             }
             else {
-                // window.location.replace("/auth/login");
+                window.location.replace("/auth/login");
             }
         }, function (err) {
             console.log(err);
@@ -2823,12 +2823,11 @@ var ViewpostComponent = /** @class */ (function () {
         });
     }
     ViewpostComponent.prototype.delete = function () {
-        var _this = this;
         if (this.CurrentUser.username == this.post.author) {
             if (confirm("Are you sure you want to delete this post?")) {
-                this.postService.deletePost(this.post.id).subscribe(function (data) {
+                this.postService.deletePost(this.post._id).subscribe(function (data) {
                     var response = JSON.parse(JSON.stringify(data));
-                    if (_this.post.success) {
+                    if (response.success) {
                         alert("Post Deleted Successfully");
                         window.location.href = "/";
                     }
@@ -2841,7 +2840,7 @@ var ViewpostComponent = /** @class */ (function () {
     };
     ViewpostComponent.prototype.edit = function () {
         if (this.CurrentUser.username == this.post.author) {
-            this.postService.editPost(this.post.id);
+            this.postService.editPost(this.post._id);
         }
         else {
             alert("You do not own this post!");
@@ -2897,7 +2896,7 @@ var ViewpostComponent = /** @class */ (function () {
         if (this.validated()) {
             if (!this.voted()) {
                 this.post.voters.push({ user: this.CurrentUser.username, vote: "up" });
-                this.postService.upvote(this.CurrentUser.username, this.post.id, 1).subscribe();
+                this.postService.upvote(this.CurrentUser.username, this.post._id, 1).subscribe();
                 this.post.votes++;
                 this.setVote();
             }
@@ -2906,19 +2905,19 @@ var ViewpostComponent = /** @class */ (function () {
                     if (voter.user == _this.CurrentUser.username) {
                         if (voter.vote == "down") {
                             voter.vote = "up";
-                            _this.postService.upvote(_this.CurrentUser.username, _this.post.id, 2).subscribe();
+                            _this.postService.upvote(_this.CurrentUser.username, _this.post._id, 2).subscribe();
                             _this.post.votes += 2;
                             _this.setVote();
                         }
                         else if (voter.vote == "up") {
                             voter.vote = "";
-                            _this.postService.downvote(_this.CurrentUser.username, _this.post.id, 1).subscribe();
+                            _this.postService.downvote(_this.CurrentUser.username, _this.post._id, 1).subscribe();
                             _this.post.votes--;
                             _this.setVote();
                         }
                         else {
                             voter.vote = "up";
-                            _this.postService.upvote(_this.CurrentUser.username, _this.post.id, 1).subscribe();
+                            _this.postService.upvote(_this.CurrentUser.username, _this.post._id, 1).subscribe();
                             _this.post.votes++;
                             _this.setVote();
                         }
@@ -2932,7 +2931,7 @@ var ViewpostComponent = /** @class */ (function () {
         if (this.validated()) {
             if (!this.voted()) {
                 this.post.voters.push({ user: this.CurrentUser.username, vote: "down" });
-                this.postService.downvote(this.CurrentUser.username, this.post.id, 1);
+                this.postService.downvote(this.CurrentUser.username, this.post._id, 1);
                 this.post.votes--;
                 this.setVote();
             }
@@ -2941,19 +2940,19 @@ var ViewpostComponent = /** @class */ (function () {
                     if (voter.user == _this.CurrentUser.username) {
                         if (voter.vote == "up") {
                             voter.vote = "down";
-                            _this.postService.downvote(_this.CurrentUser.username, _this.post.id, 2).subscribe();
+                            _this.postService.downvote(_this.CurrentUser.username, _this.post._id, 2).subscribe();
                             _this.post.votes -= 2;
                             _this.setVote();
                         }
                         else if (voter.vote == "down") {
                             voter.vote = "";
-                            _this.postService.upvote(_this.CurrentUser.username, _this.post.id, 1).subscribe();
+                            _this.postService.upvote(_this.CurrentUser.username, _this.post._id, 1).subscribe();
                             _this.post.votes++;
                             _this.setVote();
                         }
                         else {
                             voter.vote = "down";
-                            _this.postService.downvote(_this.CurrentUser.username, _this.post.id, 1).subscribe();
+                            _this.postService.downvote(_this.CurrentUser.username, _this.post._id, 1).subscribe();
                             _this.post.votes--;
                             _this.setVote();
                         }
@@ -3224,8 +3223,8 @@ exports.ViewpostResolverService = ViewpostResolverService;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
-    production: true,
-    local: false,
+    production: false,
+    local: true,
     localURL: "http://localhost:3000",
     prodURL: "http://www.technologyfeed.org"
 };
@@ -3264,7 +3263,7 @@ exports.LAZY_MODULE_MAP = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\HP\Desktop\CodingMain\Finished Projects\Age_14-17\websites_webapps\TechFeedProd\client\src\main.server.ts */"./src/main.server.ts");
+module.exports = __webpack_require__(/*! C:\Users\HP\Desktop\CodingMain\Finished Projects\Age_14-17\websites_webapps\TechFeed\client\src\main.server.ts */"./src/main.server.ts");
 
 
 /***/ }),

@@ -53,10 +53,10 @@ export class ViewpostComponent implements OnInit {
   delete() {
     if (this.CurrentUser.username == this.post.author) {
       if (confirm("Are you sure you want to delete this post?")) {
-        this.postService.deletePost(this.post.id).subscribe(
+        this.postService.deletePost(this.post._id).subscribe(
           data => {
             const response = JSON.parse(JSON.stringify(data));
-            if (this.post.success) {
+            if (response.success) {
               alert("Post Deleted Successfully");
               window.location.href = "/";
             }
@@ -70,7 +70,7 @@ export class ViewpostComponent implements OnInit {
 
   edit() {
     if (this.CurrentUser.username == this.post.author) {
-      this.postService.editPost(this.post.id);
+      this.postService.editPost(this.post._id);
     } else {
       alert("You do not own this post!");
     }
@@ -126,7 +126,7 @@ export class ViewpostComponent implements OnInit {
     if (this.validated()) {
       if (!this.voted()) {
         this.post.voters.push({ user: this.CurrentUser.username, vote: "up" });
-        this.postService.upvote(this.CurrentUser.username, this.post.id, 1).subscribe();
+        this.postService.upvote(this.CurrentUser.username, this.post._id, 1).subscribe();
         this.post.votes++;
         this.setVote();
       }
@@ -135,20 +135,20 @@ export class ViewpostComponent implements OnInit {
           if (voter.user == this.CurrentUser.username) {
             if (voter.vote == "down") {
               voter.vote = "up";
-              this.postService.upvote(this.CurrentUser.username, this.post.id, 2).subscribe();
+              this.postService.upvote(this.CurrentUser.username, this.post._id, 2).subscribe();
               this.post.votes += 2;
               this.setVote();
 
             }
             else if (voter.vote == "up") {
               voter.vote = "";
-              this.postService.downvote(this.CurrentUser.username, this.post.id, 1).subscribe();
+              this.postService.downvote(this.CurrentUser.username, this.post._id, 1).subscribe();
               this.post.votes--;
               this.setVote();
 
             } else {
               voter.vote = "up";
-              this.postService.upvote(this.CurrentUser.username, this.post.id, 1).subscribe();
+              this.postService.upvote(this.CurrentUser.username, this.post._id, 1).subscribe();
               this.post.votes++;
               this.setVote();
 
@@ -164,7 +164,7 @@ export class ViewpostComponent implements OnInit {
     if (this.validated()) {
       if (!this.voted()) {
         this.post.voters.push({ user: this.CurrentUser.username, vote: "down" });
-        this.postService.downvote(this.CurrentUser.username, this.post.id, 1);
+        this.postService.downvote(this.CurrentUser.username, this.post._id, 1);
         this.post.votes--;
         this.setVote();
       } else {
@@ -172,18 +172,18 @@ export class ViewpostComponent implements OnInit {
           if (voter.user == this.CurrentUser.username) {
             if (voter.vote == "up") {
               voter.vote = "down";
-              this.postService.downvote(this.CurrentUser.username, this.post.id, 2).subscribe();
+              this.postService.downvote(this.CurrentUser.username, this.post._id, 2).subscribe();
               this.post.votes -= 2;
               this.setVote();
 
             } else if (voter.vote == "down") {
               voter.vote = "";
-              this.postService.upvote(this.CurrentUser.username, this.post.id, 1).subscribe();
+              this.postService.upvote(this.CurrentUser.username, this.post._id, 1).subscribe();
               this.post.votes++;
               this.setVote();
             } else {
               voter.vote = "down";
-              this.postService.downvote(this.CurrentUser.username, this.post.id, 1).subscribe();
+              this.postService.downvote(this.CurrentUser.username, this.post._id, 1).subscribe();
               this.post.votes--;
               this.setVote();
             }

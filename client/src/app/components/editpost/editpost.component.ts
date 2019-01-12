@@ -45,7 +45,7 @@ export class EditpostComponent implements OnInit {
           this.CurrentUser.fullname = response.fullname;
           this.CurrentUser.created = response.created;
         } else {
-          // window.location.replace("/auth/login");
+          window.location.replace("/auth/login");
         }
       },
       err => {

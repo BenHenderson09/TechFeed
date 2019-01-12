@@ -1,16 +1,9 @@
 const express        = require("express");
 const bodyParser     = require("body-parser");
-const path           = require("path");
 const mongoose       = require("mongoose");
-const cookieParser   = require("cookie-parser");
 const session        = require("express-session");
 const passport       = require("passport");
-const LocalStrategy  = require("passport-local").Strategy;
 const config         = require("./config/database.js");
-const bcrypt         = require("bcryptjs");
-const auth           = require("./routes/auth.js");
-const posts          = require("./routes/posts.js");
-const protected      = require("./routes/protected.js");
 const cloudinary     = require("cloudinary");
 const cors           = require("cors");
 const router         = express.Router();
@@ -69,10 +62,5 @@ router.use(bodyParser.urlencoded({extended:false}));
 // Make images public
 router.use("/uploads",express.static("uploads"));
 router.use(express.static("client"));
-
-// Routing
-router.use("/auth", auth);
-router.use("/posts", posts);
-router.use(protected);
 
 module.exports = router;

@@ -66,7 +66,16 @@ maxAge: '1y'
 
 // Get api routes configured.
 const apiRoutes = require("../app.js");
-app.use("/api", apiRoutes);
+app.use(apiRoutes);
+
+// Routing
+const auth           = require("../routes/auth.js");
+const posts          = require("../routes/posts.js");
+const protectedLocation     = require("../routes/protected.js");
+
+app.use("/api/auth", auth);
+app.use("/api/posts", posts);
+app.use(protectedLocation);
 
 // Start up the Node server
 const port = process.env.PORT || 3000;
