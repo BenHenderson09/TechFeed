@@ -40,7 +40,7 @@ router.post("/register", (req, res) => {
     });
 
     // Convert time to dd-mm-yy
-    date = new Date(newUser.created);
+    let date = new Date(newUser.created);
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();

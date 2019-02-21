@@ -5,19 +5,9 @@ const session        = require("express-session");
 const passport       = require("passport");
 const config         = require("./config/database.js");
 const cloudinary     = require("cloudinary");
-const cors           = require("cors");
 const router         = express.Router();
 
 process.env.SCRT_KEY = "MY_ScRt23";
-
-router.use(require('prerender-node'));
-router.use(cors());
-router.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
 
 router.use((req,res,next)=>{
     process.env.user = req.user || undefined;
@@ -60,7 +50,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
 
 // Make images public
-router.use("/uploads",express.static("uploads"));
+router.use("/uploads", express.static("uploads"));
 router.use(express.static("client"));
 
 module.exports = router;

@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const fs = require('fs');
 const multer = require('multer');
 const cloudinary = require("cloudinary");
