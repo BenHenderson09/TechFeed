@@ -1,3 +1,11 @@
+.ad-body{
+justify-content: center !important;
+align-content: center !important;
+align-items: center !important;
+align-self: center !important;
+text-align: center !important;
+}
+
 .search-input{
     height:50px;
     border-top-left-radius: 20px 50%;
