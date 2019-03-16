@@ -19,10 +19,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Redirect all to https
-app.use((req, res, next) => {
-  if (req.protocol != 'https'){
-    console.log("-------------------------NOT SECURE-------------------------------------");
-    return res.redirect(`https://${req.get('host')}${req.originalUrl}`);
+app.use(function(req, res, next) {
+  if(!req.secure) {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
   }
   next();
 });
