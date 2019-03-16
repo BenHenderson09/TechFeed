@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit} from '@angular/core';
+import { Component, AfterViewInit, OnInit, ɵConsole} from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
@@ -22,17 +22,18 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(){
       try {
-            let items = $('.adsbygoogle').length;
-            for(let i = 0; i < items; i++){
-              (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-            }
-                
-            } catch (e) {}
+        let items = $('.adsbygoogle').length;
+
+        for(let i = 0; i < items; i++){
+          (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+        }
+      } 
+      catch (e) {}
   }
 
   ngOnInit() {
     this.unfilteredPosts = this.route.snapshot.data['posts'];
-    this.posts = this.route.snapshot.data['posts'];;
+    this.posts = this.route.snapshot.data['posts'].slice(0); // slice clones array object
   }
 
   checkKey(event){
@@ -134,7 +135,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
         this.sortByCategory("other");
         break;
       case "All Categories":
-        this.posts = this.unfilteredPosts;
+        this.posts = this.unfilteredPosts.slice(0);
         if (this.sortFilter != "Newest"){
           this.setSortFilter(this.sortFilter);
         }    
@@ -144,7 +145,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   sortByCategory(category) {
     let filtered = [];
     
-    this.posts = this.unfilteredPosts;
+    this.posts = this.unfilteredPosts.slice(0);
 
     this.posts.forEach((post, index) => {
       let containsFilter = false;
@@ -161,6 +162,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
     this.posts = filtered;
 
+    console.log(this.posts);
     if (this.sortFilter != "Newest") {
       this.setSortFilter(this.sortFilter);
     }
@@ -170,8 +172,13 @@ export class ContentComponent implements OnInit, AfterViewInit {
     this.sortFilter = filter;
 
     if (filter == "Newest") {
-      this.posts = this.unfilteredPosts;
-      this.setCategoryFilter(this.categoryFilter);
+    console.log(this.posts);
+
+      this.posts.sort((a, b) => {
+          let aCreated = a.created.split('-').reverse().join();
+          let bCreated = b.created.split('-').reverse().join();
+          return aCreated > bCreated ? -1 : (aCreated < bCreated ? 1 : 0);
+      });
     }
 
     if (filter == "Most Votes") {

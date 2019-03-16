@@ -1283,8 +1283,7 @@ var ContentComponent = /** @class */ (function () {
     };
     ContentComponent.prototype.ngOnInit = function () {
         this.unfilteredPosts = this.route.snapshot.data['posts'];
-        this.posts = this.route.snapshot.data['posts'];
-        ;
+        this.posts = this.route.snapshot.data['posts'].slice(0); // slice clones array object
     };
     ContentComponent.prototype.checkKey = function (event) {
         if (event.key == "Enter") {
@@ -1377,7 +1376,7 @@ var ContentComponent = /** @class */ (function () {
                 this.sortByCategory("other");
                 break;
             case "All Categories":
-                this.posts = this.unfilteredPosts;
+                this.posts = this.unfilteredPosts.slice(0);
                 if (this.sortFilter != "Newest") {
                     this.setSortFilter(this.sortFilter);
                 }
@@ -1386,7 +1385,7 @@ var ContentComponent = /** @class */ (function () {
     ContentComponent.prototype.sortByCategory = function (category) {
         var _this = this;
         var filtered = [];
-        this.posts = this.unfilteredPosts;
+        this.posts = this.unfilteredPosts.slice(0);
         this.posts.forEach(function (post, index) {
             var containsFilter = false;
             post.categories.forEach(function (cat) {
@@ -1399,6 +1398,7 @@ var ContentComponent = /** @class */ (function () {
             }
         });
         this.posts = filtered;
+        console.log(this.posts);
         if (this.sortFilter != "Newest") {
             this.setSortFilter(this.sortFilter);
         }
@@ -1406,8 +1406,12 @@ var ContentComponent = /** @class */ (function () {
     ContentComponent.prototype.setSortFilter = function (filter) {
         this.sortFilter = filter;
         if (filter == "Newest") {
-            this.posts = this.unfilteredPosts;
-            this.setCategoryFilter(this.categoryFilter);
+            console.log(this.posts);
+            this.posts.sort(function (a, b) {
+                var aCreated = a.created.split('-').reverse().join();
+                var bCreated = b.created.split('-').reverse().join();
+                return aCreated > bCreated ? -1 : (aCreated < bCreated ? 1 : 0);
+            });
         }
         if (filter == "Most Votes") {
             (this.posts.sort(function (a, b) { return parseFloat(a.votes) - parseFloat(b.votes); })).reverse();
