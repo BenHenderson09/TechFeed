@@ -1,7 +1,8 @@
 const express        = require("express");
 const bodyParser     = require("body-parser");
 const mongoose       = require("mongoose");
-const session        = require("express-session");
+//const session        = require("express-session");
+const cookieSession = require('cookie-session');
 const passport       = require("passport");
 const config         = require("./config/database.js");
 const cloudinary     = require("cloudinary");
@@ -30,7 +31,7 @@ dbconnection.once('open', ()=>{
     console.log("Database Connection Established");
 });
 
-// Express session middleware
+/* Express session middleware
 router.use(session({
     secret:process.env.SCRT_KEY,
     saveUninitialized:false,
@@ -39,7 +40,16 @@ router.use(session({
         secure: false,
         maxAge: 365 * 24 * 60 * 60 * 1000 // 1 year
     }
+}));*/
+
+router.use(cookieSession({
+    name: 'session',
+    keys: [process.env.SCRT_KEY],
+  
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+
   
 // Setup passport
 router.use(passport.initialize());
