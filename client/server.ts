@@ -25,8 +25,9 @@ app.use('*', (req, res, next) => {
     res.redirect(`https://${req.get('host')}${req.originalUrl}`);
     res.end();
   }
-
-  next();
+  else {
+    next();
+  }
 });
 
 // Robots.txt for crawlers (allow everyone)
