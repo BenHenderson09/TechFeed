@@ -10,12 +10,23 @@ import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
     
 import {join} from 'path';
+import { MockExecutor } from 'protractor/built/driverProviders';
 
 export const app = express();
 
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Redirect all to https
+app.use('*', (req, res, next) => {
+  if (!req.secure){
+    res.redirect(`https://${req.get('host')}${req.originalUrl}`);
+    res.end();
+  }
+
+  next();
+});
 
 // Robots.txt for crawlers (allow everyone)
 app.use('/robots.txt', (req, res)=>{
@@ -39,7 +50,7 @@ app.engine('html', ngExpressEngine({
     providers: [
       provideModuleMap(LAZY_MODULE_MAP)
     ]
-  }));
+}));
   
 app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
