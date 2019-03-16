@@ -34,7 +34,14 @@ const upload = multer({
 router.get("/all", (req, res) => {
     Post.find({}, (err, posts) => {
         if (err) { console.log(err); throw err }
-        res.json(posts.reverse());
+        
+        let sorted = posts.sort((a, b) => {
+            let aCreated = a.created.split('-').reverse().join();
+            let bCreated = b.created.split('-').reverse().join();
+            return aCreated > bCreated ? -1 : (aCreated < bCreated ? 1 : 0);
+        });
+    
+        res.json(sorted);
     });
 });
 

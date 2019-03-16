@@ -17,7 +17,7 @@ export class ResolverService implements Resolve<any> {
 
   getPosts(): Observable<any> {
     let url =  environment.local ?  environment.localURL : environment.prodURL;
-    let endpoint = url + "/api/posts/all";;
+    let endpoint = url + "/api/posts/all";
      
     return this.http.get(endpoint, { })
     .pipe( map(
