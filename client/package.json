@@ -39,7 +39,6 @@
     "core-js": "^2.5.4",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "express-session": "*",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "mongoose": "^5.2.17",
