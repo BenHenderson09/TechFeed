@@ -32,7 +32,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.unfilteredPosts = this.route.snapshot.data['posts'];
-    this.posts = this.unfilteredPosts;
+    this.posts = this.route.snapshot.data['posts'];;
   }
 
   checkKey(event){

@@ -1283,7 +1283,8 @@ var ContentComponent = /** @class */ (function () {
     };
     ContentComponent.prototype.ngOnInit = function () {
         this.unfilteredPosts = this.route.snapshot.data['posts'];
-        this.posts = this.unfilteredPosts;
+        this.posts = this.route.snapshot.data['posts'];
+        ;
     };
     ContentComponent.prototype.checkKey = function (event) {
         if (event.key == "Enter") {
@@ -3204,7 +3205,6 @@ var ResolverService = /** @class */ (function () {
     ResolverService.prototype.getPosts = function () {
         var url = environment_1.environment.local ? environment_1.environment.localURL : environment_1.environment.prodURL;
         var endpoint = url + "/api/posts/all";
-        ;
         return this.http.get(endpoint, {})
             .pipe(operators_1.map(function (res) {
             return res.json();
