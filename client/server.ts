@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Redirect all to https
+app.enable('trust proxy');
 app.use(function(req, res, next) {
   if(!req.secure) {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
