@@ -22,12 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   if (req.protocol != 'https'){
     console.log("-------------------------NOT SECURE-------------------------------------");
-    res.redirect(`https://${req.get('host')}${req.originalUrl}`);
-    res.end();
+    return res.redirect(`https://${req.get('host')}${req.originalUrl}`);
   }
-  else {
-    next();
-  }
+  next();
 });
 
 // Robots.txt for crawlers (allow everyone)
