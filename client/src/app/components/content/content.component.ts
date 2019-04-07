@@ -182,7 +182,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
     }
 
     if (filter == "Most Votes") {
-      (this.posts.sort((a, b) => parseFloat(a.votes) - parseFloat(b.votes))).reverse();
+      this.posts.sort((a, b) => parseFloat(b.votes) - parseFloat(a.votes));
     }
 
     if (filter == "Least Votes") {
