@@ -7,7 +7,7 @@ const config         = require("./config/database.js");
 const cloudinary     = require("cloudinary");
 const router         = express.Router();
 
-process.env.SCRT_KEY = "MY_ScRt23";
+process.env.SCRT_KEY = "your secret";
 
 router.use((req,res,next)=>{
     process.env.user = req.user || undefined;
@@ -16,9 +16,9 @@ router.use((req,res,next)=>{
 
 // Configure cloudinary
 cloudinary.config({ 
-    cloud_name: 'technologyfeed', 
-    api_key: '132798679696652', 
-    api_secret: '6aBf01A0CPqL6oXDpwIhaRFBCuc' 
+    cloud_name: 'your name', 
+    api_key: 'your api key', 
+    api_secret: 'your api secret' 
 });
 
 // Connect to MongoDB
