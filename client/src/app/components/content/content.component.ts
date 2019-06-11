@@ -10,7 +10,7 @@ import * as $ from 'jquery';
   styleUrls: ['./content.component.css', '../global.css']
 })
 
-export class ContentComponent implements OnInit, AfterViewInit {
+export class ContentComponent{
   searchText : String;
   categoryFilter: String = "All Categories";
   sortFilter: String = "Newest";
@@ -19,17 +19,6 @@ export class ContentComponent implements OnInit, AfterViewInit {
   loaded: boolean = false;
 
   constructor(private postService:PostService, private route:ActivatedRoute){}
-
-  ngAfterViewInit(){
-      try {
-        let items = $('.adsbygoogle').length;
-
-        for(let i = 0; i < items; i++){
-          (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-        }
-      } 
-      catch (e) {}
-  }
 
   ngOnInit() {
     this.unfilteredPosts = this.route.snapshot.data['posts'];
@@ -182,7 +171,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
     }
 
     if (filter == "Most Votes") {
-      (this.posts.sort((a, b) => parseFloat(a.votes) - parseFloat(b.votes))).reverse();
+      this.posts.sort((a, b) => parseFloat(b.votes) - parseFloat(a.votes));
     }
 
     if (filter == "Least Votes") {

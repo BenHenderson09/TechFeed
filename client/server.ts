@@ -18,7 +18,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Redirect all to https
+/* Redirect all to https
 
 app.enable('trust proxy');
 app.use(function(req, res, next) {
@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
   }
   next();
-});
+});*/
 
 // Robots.txt for crawlers (allow everyone)
 app.use('/robots.txt', (req, res)=>{

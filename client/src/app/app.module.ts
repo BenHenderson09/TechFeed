@@ -1,7 +1,6 @@
 import { CKEditorModule } from 'ngx-ckeditor';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { AdsenseModule } from 'ng2-adsense';
 
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -50,11 +49,7 @@ import { ViewpostResolverService } from './services/viewpost-resolver.service';
     HttpClientModule,
     QuillModule,
     CKEditorModule,
-    HttpModule,
-    AdsenseModule.forRoot({
-      adClient: 'ca-pub-5657057422841152',
-      adSlot: 6827494002,
-    })
+    HttpModule
   ],
   bootstrap: [AppComponent],
   providers: [

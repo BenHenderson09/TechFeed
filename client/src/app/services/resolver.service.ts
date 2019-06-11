@@ -4,7 +4,6 @@ import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/r
 import { PostService } from '../services/post.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,7 @@ export class ResolverService implements Resolve<any> {
   constructor(private postService: PostService, private http:Http) {}
 
   getPosts(): Observable<any> {
-    let url =  environment.local ?  environment.localURL : environment.prodURL;
-    let endpoint = url + "/api/posts/all";
+    let endpoint = "http://localhost:3000/api/posts/all";
      
     return this.http.get(endpoint, { })
     .pipe( map(
